@@ -1,0 +1,41 @@
+# 37 - As tarifas de certo parque de estacionamento são as seguintes:
+
+# 1ª e 2ª hora - R$ 1,00 cada
+# 3ª e 4ª hora - R$ 1,40 cada
+# 5ª hora e seguintes - R$ 2,00 cada
+
+# O número de horas a pagar é sempre inteiro e arredondado por excesso, deste modo, quem esacionar 61 minutos
+# pagará duas horas, que é o mesmo se tivesse permanecido 120 minutos. Os momentos de chegada ao parque e a partida
+# destes são apresentados na forma de pares de inteiros, representado horas e minutos. Por exemplo, o par 12:50
+# representará "dez para uma da tarde". Pertendendo-se criar um programa que, lidos pelo teclado os momentos de
+# chegada e a partida, escreva na tela o preço cobrado pelo estacionamento. Admite-se que a chegada e a partida se dão
+# com o intervalo não superior a 24 horas. Portando, se uma dada hora de chegada for superior à da partida, isso
+# não é uma situação de erro, antes significará que a partida ocorreu no dia seguinte ao da chegada.
+
+import math
+
+# Obter os horários de entrada e saída
+entrada = input("Informe a hora de entrada (hh:mm): ")
+saida = input("Informe a hora de saída (hh:mm): ")
+
+# Dividir as horas e minutos
+entrada_horas, entrada_minutos = map(int, entrada.split(':'))
+saida_horas, saida_minutos = map(int, saida.split(':'))
+
+# Calcular o tempo total em minutos
+total_entrada_minutos = entrada_horas * 60 + entrada_minutos
+total_saida_minutos = saida_horas * 60 + saida_minutos
+
+# Calcular o tempo de estacionamento arredondado por excesso para cima
+tempo_total_estacionado = math.ceil((total_saida_minutos - total_entrada_minutos) / 60)
+
+# Determinar o preço com base no tempo de estacionamento
+
+if tempo_total_estacionado <= 2:
+    preco = tempo_total_estacionado * 1.00
+elif tempo_total_estacionado <= 4:
+    preco = 2 + (tempo_total_estacionado - 2) * 1.40
+else:
+    preco = 4.80 + (tempo_total_estacionado - 4) * 2.00
+
+print(f"O preço cobrado pelo estacionamento é: R$ {preco:.2f}")
